@@ -12,7 +12,7 @@ def get_embedding(text):
   
 def get_decision_makers(company_data, embedded_positions):
 
-  decision_makers = {"Name":[], "Position":[], "LinkedIn_URL":[], "Email":[]}
+  decision_makers = []
   if "employees" in company_data:
 
     for employee in company_data["employees"]:
@@ -35,10 +35,7 @@ def get_decision_makers(company_data, embedded_positions):
 
       if switch == 1:
         email = get_emails_from_linked_in(empl_url)
-        decision_makers["Name"].append(empl_name)
-        decision_makers["Position"].append(empl_position)
-        decision_makers["LinkedIn_URL"].append(empl_url)
-        decision_makers["Email"].append(email)
+        decision_makers.append({"Name":empl_name, "Position":empl_position, "LinkedIn_URL":empl_url, "Email":email})
         
   return decision_makers
 
