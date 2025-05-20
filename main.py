@@ -8,7 +8,7 @@ from src.job_post_scraper import job_post_scraper
 
 st.header("Accounting-Job-Matcher")
 
-st.subheader("Get extract lead list end get emails")
+st.subheader("Extract lead list and get emails")
 
 if "leads_processed" not in st.session_state:
   st.session_state.leads_processed = False
