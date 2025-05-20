@@ -10,8 +10,17 @@ st.header("Accounting-Job-Matcher")
 
 st.subheader("Extract lead list and get emails")
 
+restart = st.button("Restart")
+if restart:
+  st.session_state.leads_processed = False
+  st.session_state.checkpoint = False
+  st.session_state.posts_processed = False
+
 if "leads_processed" not in st.session_state:
   st.session_state.leads_processed = False
+
+if "checkpoint" not in st.session_state:
+  st.session_state.checkpoint = False
   
 st.text("Use the cookie editor chrome extension to export your Sales Navigator cookies as JSON")
 cookie_input = st.text_area("Paste here your Sales Navigator cookie", height=100)
@@ -30,7 +39,10 @@ if cookie_input and list_url and max_results:
   extract = st.button("Extract leads")
 
   if extract:
-    leads = extract_leads(cookies, list_url, int(max_results))
+    if st.session_state.checkpoint == False
+      st.session_state.leads = extract_leads(cookies, list_url, int(max_results))
+      st.session_state.checkpoint = True
+    leads = st.session_state.leads
     leads["LinkedIN_URL"] = []
     leads["Email"] = []
     for i in range(len(leads["Name"])):
@@ -38,7 +50,7 @@ if cookie_input and list_url and max_results:
       title = leads["Title"][i]
       company = leads["Company"][i]
       peronal_info_string = name + title + company
-      linkedin_url = google_linkedin_people(personal_info_string)
+      linkedin_url = get_linkedin_url(personal_info_string)
       leads["LinkedIN_URL"].append(linkedin_url)
       email = get_email_from_linkedin(linkedin_url)
       leads["Email"].append(email)
