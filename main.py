@@ -61,7 +61,7 @@ if "posts_processed" not in st.session_state:
   
 st.subheader("Scrape job posts")
 job_title = st.text_area("Write down here the job title you want to use for scraping job posts")
-number_posts = st.number_input("How many job posts do you want scraped?")
+number_posts = st.number_input("How many job posts do you want scraped?", min_value=1, max_value=300)
 
 if job_title and number_posts:
   scrape = st.button("Scrape job posts")
