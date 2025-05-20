@@ -59,7 +59,7 @@ if scrape:
   embedded_positions = np.load("position_embeddings.py")
   posts_scraped = job_post_scraper(job_title, number_posts)
   posts_scraped["Decision_makers"] = []
-  for company_url in posts_scraped["Company_LI_URL"]
+  for company_url in posts_scraped["Company_LI_URL"]:
     company_data = scrape_employees_from_companies(company_url)
     decision_makers = get_decision_makers(company_data, embedded_positions)
     dm_string = ""
