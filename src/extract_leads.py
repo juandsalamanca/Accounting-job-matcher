@@ -20,7 +20,7 @@ def extract_leads(cookies, list_url, max_results):
   
   # Fetch and print Actor results from the run's dataset (if there are any)
   for item in client.dataset(run["defaultDatasetId"]).iterate_items():
-    scraped_info["Name"].append(item["fullname"])
+    scraped_info["Name"].append(item["full_name"])
     scraped_info["Title"].append(item["jobtitle"])
     scraped_info["Company"].append(item["company_name"])
     
