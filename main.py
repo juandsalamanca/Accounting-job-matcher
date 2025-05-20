@@ -13,4 +13,9 @@ list_url = st.text_area("Paste here your Sales Navigator Lead list URL", height=
 st.text("It is recommended to not scrape more than a few hundred leads a day and preferably spaced out during the day")
 max_results = st.number_input("Maximum results extracted from the list")
 
-leads = extract_leads(
+extract = st.button("Extract leads")
+if extract:
+  leads = extract_leads(cookies, list_url, max_results)
+  for 
+
+
