@@ -15,9 +15,10 @@ if "leads_processed" not in st.session_state:
   
 st.text("Use the cookie editor chrome extension to export your Sales Navigator cookies as JSON")
 cookie_input = st.text_area("Paste here your Sales Navigator cookie", height=100)
-st.code(cookie_input)
+
 if cookie_input:
   cookie_string = cookie_input.replace("true", "True").replace("false", "False").replace("null", "None")
+  st.code(cookie_string)
   cookies = json.loads(cookie_string)
   
 list_url = st.text_area("Paste here your Sales Navigator Lead list URL", height=70)
