@@ -52,7 +52,7 @@ if cookie_input and list_url and max_results:
       peronal_info_string = name + title + company
       linkedin_url = get_linkedin_url(personal_info_string)
       leads["LinkedIN_URL"].append(linkedin_url)
-      email = get_email_from_linkedin(linkedin_url)
+      email = get_emails_from_linkedin(linkedin_url)
       leads["Email"].append(email)
       leads_df = pd.DataFrame(leads)
       
