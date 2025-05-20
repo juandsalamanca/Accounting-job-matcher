@@ -10,7 +10,7 @@ st.header("Accounting-Job-Matcher")
 
 st.subheader("Get extract lead list end get emails")
 
-if leads_processed not in st.session_state:
+if "leads_processed" not in st.session_state:
   st.session_state.leads_processed = False
   
 st.text("Use the cookie editor chrome extension to export your sales navigator cookies as JSON")
@@ -54,7 +54,7 @@ if st.session_state.leads_processed:
         mime="text/csv",
     )
   
-if posts_processed not in st.session_state:
+if "posts_processed" not in st.session_state:
   st.session_state.posts_processed = False
   
 st.subheader("Scrape job posts")
