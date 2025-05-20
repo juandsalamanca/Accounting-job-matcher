@@ -3,7 +3,7 @@ import json
 import pandas as pd
 from src.extract_leads import extract_leads
 from src.get_emails_from_linkedin import get_emails_from_linkedin
-from src.google_linkedin_people import google_linkedin_people
+from src.google_linkedin_people import get_linkedin_url
 from src.jop_post_scraper import jop_post_scraper
 
 st.header("Accounting-Job-Matcher")
