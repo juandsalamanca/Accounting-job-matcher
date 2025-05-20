@@ -32,14 +32,26 @@ if extract:
     leads["LinkedIN_URL"].append(linkedin_url)
     email = get_email_from_linkedin(linkedin_url)
     leads["Email"].append(email)
-  df = pd.DataFrame(leads)
+    
+  leads_df = pd.DataFrame(leads)
 
 st.subheader("Scrape job posts")
 job_title = st.text_area("Write down here the job title you want to use for scraping job posts")
 number_posts = st.number_input("How many job posts do you want scraped?")
 scrape = st.button("Scrape job posts")
 if scrape:
+  embedded_positions = np.load("position_embeddings.py"))
   posts_scraped = job_post_scraper(job_title, number_posts)
+  posts_scraped["Decision_makers"] = []
+  for company_url in posts_scraped["Company_LI_URL"]
+    company_data = scrape_employees_from_companies(company_url)
+    decision_makers = get_decision_makers(company_data, embedded_positions)
+    dm_string = ""
+    for decision_maker in decision_makers:
+      dm_string += f"({decision_maker["Name"]}, {decision_maker["Position"]}, {decision_maker["LinkedIn_URL"]}, {decision_maker["Email"]})"
+    posts_scraped["Decision_makers"].append(dm_string)
+
+  posts_df = pd.DataFrame(posts_scraped)
     
                      
 
