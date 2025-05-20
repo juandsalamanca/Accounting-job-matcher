@@ -36,6 +36,10 @@ if extract:
 
 st.subheader("Scrape job posts")
 job_title = st.text_area("Write down here the job title you want to use for scraping job posts")
+number_posts = st.number_input("How many job posts do you want scraped?")
+scrape = st.button("Scrape job posts")
+if scrape:
+  posts_scraped = job_post_scraper(job_title, number_posts)
     
                      
 
