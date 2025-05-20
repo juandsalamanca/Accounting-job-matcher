@@ -19,6 +19,8 @@ st.text("It is recommended to not scrape more than a few hundred leads a day and
 max_results = st.number_input("Maximum results extracted from the list")
 
 extract = st.button("Extract leads")
+if leads_processed not in st.session_state:
+  st.session_state.leads_processed = False
 if extract:
   leads = extract_leads(cookies, list_url, max_results)
   leads["LinkedIN_URL"] = []
@@ -32,9 +34,23 @@ if extract:
     leads["LinkedIN_URL"].append(linkedin_url)
     email = get_email_from_linkedin(linkedin_url)
     leads["Email"].append(email)
+    leads_df = pd.DataFrame(leads)
     
-  leads_df = pd.DataFrame(leads)
+  st.session_state.leads_processed = True
 
+if st.session_state.leads_processed:
+  
+  st.session_state.leads_data = leads_df.to_csv(index = False).encode("utf-8")
+  st.download_button(
+        label="Download the output file",
+        data=st.session_state.leads_data,
+        file_name="Leads_data.csv",
+        mime="text/csv",
+    )
+  
+if posts_processed not in st.session_state:
+  st.session_state.posts_processed = False
+  
 st.subheader("Scrape job posts")
 job_title = st.text_area("Write down here the job title you want to use for scraping job posts")
 number_posts = st.number_input("How many job posts do you want scraped?")
@@ -52,7 +68,16 @@ if scrape:
     posts_scraped["Decision_makers"].append(dm_string)
 
   posts_df = pd.DataFrame(posts_scraped)
-    
+  st.session_state.posts_processed = True
+
+if st.session_state.posts_processed:
+  st.session_state.posts_data = posts_df.to_csv(index = False).encode("utf-8")
+  st.download_button(
+        label="Download the output file",
+        data=st.session_state.posts_data,
+        file_name="Posts_data.csv",
+        mime="text/csv",
+    )
                      
 
 
