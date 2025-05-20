@@ -40,6 +40,6 @@ def get_decision_makers(company_data, embedded_positions):
         decision_makers["LinkedIn_URL"].append(empl_url)
         decision_makers["Email"].append(email)
         
-  return company_data
+  return decision_makers
 
 
