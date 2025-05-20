@@ -1,4 +1,5 @@
 import requests
+import streamlit as st
 
 def get_emails_from_linkedin(linkedinUrl):
   url = "https://api.apollo.io/v1/people/match"
@@ -15,7 +16,7 @@ def get_emails_from_linkedin(linkedinUrl):
   headers = {
       'Cache-Control': 'no-cache',
       'Content-Type': 'application/json',
-      'X-Api-Key': '2TADtgGV3mbxRyhvNgYFrA'
+      'X-Api-Key': st.secrets["apollo_key"]
   }
 
   response = requests.request("POST", url, headers=headers, json=data)
