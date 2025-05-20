@@ -1,0 +1,5 @@
+apify-client
+pandas
+openai
+numpy
+sklearn
