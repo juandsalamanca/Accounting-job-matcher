@@ -9,34 +9,40 @@ from src.job_post_scraper import job_post_scraper
 st.header("Accounting-Job-Matcher")
 
 st.subheader("Get extract lead list end get emails")
+
+if leads_processed not in st.session_state:
+  st.session_state.leads_processed = False
+  
 st.text("Use the cookie editor chrome extension to export your sales navigator cookies as JSON")
 cookie_input = st.text_area("Paste here your Sales Navigator cookie", height=100)
-cookie_input = cookie_input.replace("true", "True").replace("false", "False").replace("null", "None")
-cookies = json.loads(cookie_input)
+if cookie_input:
+  cookie_string = cookie_input.replace("true", "True").replace("false", "False").replace("null", "None")
+  cookies = json.loads(cookie_string)
+  
 list_url = st.text_area("Paste here your Sales Navigator Lead list URL", height=100)
 
 st.text("It is recommended to not scrape more than a few hundred leads a day and preferably spaced out during the day")
 max_results = st.number_input("Maximum results extracted from the list")
 
-extract = st.button("Extract leads")
-if leads_processed not in st.session_state:
-  st.session_state.leads_processed = False
-if extract:
-  leads = extract_leads(cookies, list_url, max_results)
-  leads["LinkedIN_URL"] = []
-  leads["Email"] = []
-  for i in range(len(leads["Name"])):
-    name = leads["Name"][i]
-    title = leads["Title"][i]
-    company = leads["Company"][i]
-    peronal_info_string = name + title + company
-    linkedin_url = google_linkedin_people(personal_info_string)
-    leads["LinkedIN_URL"].append(linkedin_url)
-    email = get_email_from_linkedin(linkedin_url)
-    leads["Email"].append(email)
-    leads_df = pd.DataFrame(leads)
-    
-  st.session_state.leads_processed = True
+if cookie_input and list_url and max_results:
+  extract = st.button("Extract leads")
+
+  if extract:
+    leads = extract_leads(cookies, list_url, max_results)
+    leads["LinkedIN_URL"] = []
+    leads["Email"] = []
+    for i in range(len(leads["Name"])):
+      name = leads["Name"][i]
+      title = leads["Title"][i]
+      company = leads["Company"][i]
+      peronal_info_string = name + title + company
+      linkedin_url = google_linkedin_people(personal_info_string)
+      leads["LinkedIN_URL"].append(linkedin_url)
+      email = get_email_from_linkedin(linkedin_url)
+      leads["Email"].append(email)
+      leads_df = pd.DataFrame(leads)
+      
+    st.session_state.leads_processed = True
 
 if st.session_state.leads_processed:
   
