@@ -1,7 +1,7 @@
 import requests
 import streamlit as st
 
-def get_emails_from_linkedin(linkedinUrl):
+def get_emails_from_linkedin(linkedinUrl, firstName="",lastName="",companyName=""):
   url = "https://api.apollo.io/v1/people/match"
 
   data = {
