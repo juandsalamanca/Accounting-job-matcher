@@ -22,12 +22,10 @@ def get_decision_makers(company_data, embedded_positions):
       empl_url = employee["employee_profile_url"]
       position_embedding = get_embedding(empl_position)
       switch = 0
-      st.write(empl_position)
       for i, embedding in enumerate(embedded_positions):
         mse = mean_squared_error(embedding, position_embedding)
         if mse < 3.8e-4:
           switch = 1
-          st.write(f"Match with {positions[i]}")
       if switch == 1:
         email = get_emails_from_linkedin(empl_url)
         decision_makers.append({"Name":empl_name, "Position":empl_position, "LinkedIn_URL":empl_url, "Email":email})
