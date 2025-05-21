@@ -108,7 +108,7 @@ if job_title and number_posts:
       st.session_state.posts_df = pd.DataFrame(posts_scraped)
       st.session_state.posts_processed = True
       
-st.write("Post porcessed:", st.session_state.posts_processed)
+st.write("Post df:", st.session_state.posts_df)
 if st.session_state.posts_processed:
   st.session_state.posts_data = st.session_state.posts_df.to_csv(index = False).encode("utf-8")
   st.download_button(
