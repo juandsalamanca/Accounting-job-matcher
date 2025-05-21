@@ -1,6 +1,6 @@
 from openai import AzureOpenAI
 from sklearn.metrics import mean_squared_error
-from src.get_emails_from_linked_in import get_emails_from_linked_in
+from get_emails_from_linked_in import get_emails_from_linked_in
 
 def get_embedding(text):
   openai_client = AzureOpenAI(api_key=st.secrets["openai_key"],  api_version="2024-02-01", azure_endpoint = st.secrets["openai_endpoint"])
