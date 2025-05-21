@@ -45,7 +45,7 @@ if cookie_input and list_url and max_results:
   extract = st.button("Extract leads")
 
   if extract:
-    if st.session_state.checkpoint == False:
+    if st.session_state.leads_checkpoint == False:
       st.session_state.leads = extract_leads(cookies, list_url, int(max_results))
       st.session_state.leads_checkpoint = True
     leads = st.session_state.leads
