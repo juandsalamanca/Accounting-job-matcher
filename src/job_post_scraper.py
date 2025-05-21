@@ -6,9 +6,9 @@ def job_post_scraper(job_title, count):
   scraped_data = {"Job_title":[], "Company_name":[], "Company_LI_URL":[], "Job_post_url":[]}
   ApifyKey = st.secrets["apify_key"]
   apify_client = ApifyClient(ApifyKey)
-  encoded_title = urllib.parse.quote(title)
+  encoded_title = urllib.parse.quote(job_title)
   run_input = {
-    "urls": [f"https://www.linkedin.com/jobs/search-results/?keywords={job_title}&origin=SWITCH_SEARCH_VERTICAL"],
+    "urls": [f"https://www.linkedin.com/jobs/search-results/?keywords={encoded_title}&origin=SWITCH_SEARCH_VERTICAL"],
     "scrapeCompany": True,
     "count": count,
   }
