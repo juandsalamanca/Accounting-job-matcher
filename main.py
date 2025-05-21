@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import pandas as pd
+import time
 from src.extract_leads import extract_leads
 from src.get_emails_from_linkedin import get_emails_from_linkedin
 from src.google_linkedin_people import get_linkedin_url
@@ -56,6 +57,7 @@ if cookie_input and list_url and max_results:
       leads["LinkedIN_URL"].append(linkedin_url)
       email = get_emails_from_linkedin(linkedin_url)
       leads["Email"].append(email)
+      time.sleep(3)
     st.session_state.leads_df = pd.DataFrame(leads)
     st.session_state.leads_processed = True
 
@@ -89,6 +91,7 @@ if job_title and number_posts:
       for decision_maker in decision_makers:
         dm_string += f"({decision_maker["Name"]}, {decision_maker["Position"]}, {decision_maker["LinkedIn_URL"]}, {decision_maker["Email"]})"
       posts_scraped["Decision_makers"].append(dm_string)
+      time.sleep(5)
   
     st.session_state.posts_df = pd.DataFrame(posts_scraped)
     st.session_state.posts_processed = True
