@@ -27,7 +27,7 @@ if "leads_processed" not in st.session_state:
 
 if "leads_checkpoint" not in st.session_state:
   st.session_state.leads_checkpoint = False
-  
+
 st.text("Use the cookie editor chrome extension to export your Sales Navigator cookies as JSON")
 cookie_input = st.text_area("Paste here your Sales Navigator cookie", height=100)
 
@@ -81,6 +81,10 @@ if "posts_processed" not in st.session_state:
 
 if "posts_checkpoint" not in st.session_state:
   st.session_state.posts_checkpoint = False
+
+if "posts_df" not in st.session_state:
+  st.session_state.posts_df = False
+  
   
 st.subheader("Scrape job posts")
 job_title = st.text_area("Write down here the job title you want to use for scraping job posts", height=70)
