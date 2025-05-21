@@ -33,7 +33,7 @@ def get_decision_makers(company_data, embedded_positions):
         employee["MSE"].append(mse)
         if mse < 3.8e-4:
           switch = 1
-          st.write(f"Match with {positions[i]")
+          st.write(f"Match with {positions[i]}")
           employee["Match"].append([positions[i], mse])
 
       if switch == 1:
