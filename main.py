@@ -50,7 +50,7 @@ if cookie_input and list_url and max_results:
       name = leads["Name"][i]
       title = leads["Title"][i]
       company = leads["Company"][i]
-      personal_info_string = name + title + company
+      personal_info_string = f"{name} {title} {company}"
       linkedin_url = get_linkedin_url(personal_info_string)
       st.write(personal_info_string)
       st.write(linkedin_url)
