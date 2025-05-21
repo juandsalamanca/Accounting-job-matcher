@@ -28,7 +28,7 @@ def get_decision_makers(company_data, embedded_positions):
           switch = 1
           st.write(f"Match with {positions[i]}")
       if switch == 1:
-        email = get_emails_from_linked_in(empl_url)
+        email = get_emails_from_linkedin(empl_url)
         decision_makers.append({"Name":empl_name, "Position":empl_position, "LinkedIn_URL":empl_url, "Email":email})
         
   return decision_makers
