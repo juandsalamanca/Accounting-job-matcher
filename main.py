@@ -21,8 +21,8 @@ if restart:
 if "leads_processed" not in st.session_state:
   st.session_state.leads_processed = False
 
-if "checkpoint" not in st.session_state:
-  st.session_state.checkpoint = False
+if "leads_checkpoint" not in st.session_state:
+  st.session_state.leads_checkpoint = False
   
 st.text("Use the cookie editor chrome extension to export your Sales Navigator cookies as JSON")
 cookie_input = st.text_area("Paste here your Sales Navigator cookie", height=100)
@@ -43,7 +43,7 @@ if cookie_input and list_url and max_results:
   if extract:
     if st.session_state.checkpoint == False:
       st.session_state.leads = extract_leads(cookies, list_url, int(max_results))
-      st.session_state.checkpoint = True
+      st.session_state.leads_checkpoint = True
     leads = st.session_state.leads
     leads["LinkedIN_URL"] = []
     leads["Email"] = []
@@ -74,6 +74,9 @@ if st.session_state.leads_processed:
   
 if "posts_processed" not in st.session_state:
   st.session_state.posts_processed = False
+
+if "posts_checkpoint" not in st.session_state:
+  st.session_state.posts_checkpoint = False
   
 st.subheader("Scrape job posts")
 job_title = st.text_area("Write down here the job title you want to use for scraping job posts", height=70)
@@ -82,9 +85,11 @@ number_posts = st.number_input("How many job posts do you want scraped?", min_va
 if job_title and number_posts:
   scrape = st.button("Scrape job posts")
   if scrape:
-
-    embedded_positions = np.load("position_embeddings.npy")
-    posts_scraped = job_post_scraper(job_title, number_posts)
+    if st.session_state.posts_checkpoint == False:
+      embedded_positions = np.load("position_embeddings.npy")
+      st.session_state.posts_scraped = job_post_scraper(job_title, number_posts)
+      st.session_state.posts_checkpoint = True
+    post_scraped = st.session_state.posts_scraped
     posts_scraped["Decision_makers"] = []
     for company_url in posts_scraped["Company_LI_URL"]:
       company_data = scrape_employees_from_companies(company_url)
@@ -93,7 +98,7 @@ if job_title and number_posts:
       for decision_maker in decision_makers:
         dm_string += f"({decision_maker["Name"]}, {decision_maker["Position"]}, {decision_maker["LinkedIn_URL"]}, {decision_maker["Email"]})"
       posts_scraped["Decision_makers"].append(dm_string)
-      time.sleep(5)
+      time.sleep(2)
   
     st.session_state.posts_df = pd.DataFrame(posts_scraped)
     st.session_state.posts_processed = True
