@@ -1,6 +1,7 @@
 from openai import AzureOpenAI
 from sklearn.metrics import mean_squared_error
 from src.get_emails_from_linkedin import get_emails_from_linkedin
+import streamlit as st
 
 def get_embedding(text):
   openai_client = AzureOpenAI(api_key=st.secrets["openai_key"],  api_version="2024-02-01", azure_endpoint = st.secrets["openai_endpoint"])
@@ -11,7 +12,7 @@ def get_embedding(text):
   return response.dict()['data'][0]['embedding']
   
 def get_decision_makers(company_data, embedded_positions):
-
+  positions = ["CEO", "CFO", "COO", "Chief Officer", "President", "VP", "Director", "Board Member", "Chairman", "Principal", "Executive"]
   decision_makers = []
   if "employees" in company_data:
 
@@ -25,12 +26,14 @@ def get_decision_makers(company_data, embedded_positions):
       switch = 0
       employee["MSE"] = []
       employee["Match"] = []
+      st.write(empl_position)
       for i, embedding in enumerate(embedded_positions):
-
+        
         mse = mean_squared_error(embedding, position_embedding)
         employee["MSE"].append(mse)
         if mse < 3.8e-4:
           switch = 1
+          st.write(f"Match with {positions[i]")
           employee["Match"].append([positions[i], mse])
 
       if switch == 1:
