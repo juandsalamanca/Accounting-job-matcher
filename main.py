@@ -7,6 +7,7 @@ from src.extract_leads import extract_leads
 from src.get_emails_from_linkedin import get_emails_from_linkedin
 from src.google_linkedin_people import get_linkedin_url
 from src.job_post_scraper import job_post_scraper
+from src.scrape_employees_from_companies import scrape_employees_from_companies
 
 st.header("Accounting-Job-Matcher")
 
