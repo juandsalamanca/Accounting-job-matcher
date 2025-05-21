@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import pandas as pd
+import numpy as np
 import time
 from src.extract_leads import extract_leads
 from src.get_emails_from_linkedin import get_emails_from_linkedin
