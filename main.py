@@ -105,7 +105,7 @@ if job_title and number_posts:
       posts_scraped["Decision_makers"] = []
       for company_url in posts_scraped["Company_LI_URL"]:
         company_data = scrape_employees_from_companies(company_url)
-        decision_makers = get_decision_makers(company_data, embedded_positions)
+        decision_makers = get_decision_makers(company_data[0], embedded_positions)
         dm_string = ""
         for decision_maker in decision_makers:
           dm_string += f"({decision_maker["Name"]}, {decision_maker["Position"]}, {decision_maker["LinkedIn_URL"]}, {decision_maker["Email"]})"
