@@ -54,13 +54,12 @@ if cookie_input and list_url and max_results:
       leads["LinkedIN_URL"].append(linkedin_url)
       email = get_emails_from_linkedin(linkedin_url)
       leads["Email"].append(email)
-    leads_df = pd.DataFrame(leads)
-      
+    st.session_state.leads_df = pd.DataFrame(leads)
     st.session_state.leads_processed = True
 
 if st.session_state.leads_processed:
   
-  st.session_state.leads_data = leads_df.to_csv(index = False).encode("utf-8")
+  st.session_state.leads_data = st.session_state.leads_df.to_csv(index = False).encode("utf-8")
   st.download_button(
         label="Download the output file",
         data=st.session_state.leads_data,
@@ -89,11 +88,11 @@ if job_title and number_posts:
         dm_string += f"({decision_maker["Name"]}, {decision_maker["Position"]}, {decision_maker["LinkedIn_URL"]}, {decision_maker["Email"]})"
       posts_scraped["Decision_makers"].append(dm_string)
   
-    posts_df = pd.DataFrame(posts_scraped)
+    st.session_state.posts_df = pd.DataFrame(posts_scraped)
     st.session_state.posts_processed = True
 
 if st.session_state.posts_processed:
-  st.session_state.posts_data = posts_df.to_csv(index = False).encode("utf-8")
+  st.session_state.posts_data = st.session_state.posts_df.to_csv(index = False).encode("utf-8")
   st.download_button(
         label="Download the output file",
         data=st.session_state.posts_data,
