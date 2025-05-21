@@ -82,6 +82,13 @@ number_posts = st.number_input("How many job posts do you want scraped?", min_va
 if job_title and number_posts:
   scrape = st.button("Scrape job posts")
   if scrape:
+    import os
+    # Get list of files in the current directory
+    files = os.listdir()
+    # Print each file
+    for file in files:
+      print(file)
+
     embedded_positions = np.load("position_embeddings.py")
     posts_scraped = job_post_scraper(job_title, number_posts)
     posts_scraped["Decision_makers"] = []
