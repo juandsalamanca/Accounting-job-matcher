@@ -15,6 +15,7 @@ def scrape_employees_from_companies(company_url):
     actor_call = appify_client.actor("sanjeta/linkedin-company-profile-scraper").call(run_input=run_input)
     res=[]
     # Fetch and print Actor results from the run's dataset (if there are any)
+    company_data = []
     for item in appify_client.dataset(actor_call["defaultDatasetId"]).iterate_items():
       company_data.append(item)
       
