@@ -14,8 +14,8 @@ def job_post_scraper(job_title, count):
   }
 
   # Run the Actor and wait for it to finish
-  run = appify_client.actor("hKByXkMQaC5Qt9UMN").call(run_input=run_input)
-  for item in appify_client.dataset(run["defaultDatasetId"]).iterate_items():
+  run = apify_client.actor("hKByXkMQaC5Qt9UMN").call(run_input=run_input)
+  for item in apify_client.dataset(run["defaultDatasetId"]).iterate_items():
     scraped_data["Job_title"].append(item["title"])
     scraped_data["Company_name"].append(item["companyName"])
     scraped_data["Company_LI_URL"].append(item["companyLinkedinUrl"])
