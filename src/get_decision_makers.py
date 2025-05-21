@@ -2,6 +2,7 @@ from openai import AzureOpenAI
 from sklearn.metrics import mean_squared_error
 from src.get_emails_from_linkedin import get_emails_from_linkedin
 import streamlit as st
+import time
 
 def get_embedding(text):
   openai_client = AzureOpenAI(api_key=st.secrets["openai_key"],  api_version="2024-02-01", azure_endpoint = st.secrets["openai_endpoint"])
@@ -30,6 +31,7 @@ def get_decision_makers(company_data, embedded_positions):
       if switch == 1:
         email = get_emails_from_linkedin(empl_url)
         decision_makers.append({"Name":empl_name, "Position":empl_position, "LinkedIn_URL":empl_url, "Email":email})
+        time.sleep(1)
         
   return decision_makers
 
