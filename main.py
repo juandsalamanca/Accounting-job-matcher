@@ -99,8 +99,8 @@ if job_title and number_posts:
       st.session_state.posts_checkpoint = True
     posts_scraped = st.session_state.posts_scraped
     # Cut the data for testing:
-    for key in posts_scraped:
-      posts_scraped[key] = posts_scraped[key][:5]
+    #for key in posts_scraped:
+    #  posts_scraped[key] = posts_scraped[key][:5]
     #if st.session_state.posts_processed == False:
     if True:
       embedded_positions = np.load("position_embeddings.npy")
