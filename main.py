@@ -51,6 +51,8 @@ if cookie_input and list_url and max_results:
       company = leads["Company"][i]
       personal_info_string = name + title + company
       linkedin_url = get_linkedin_url(personal_info_string)
+      st.write(personal_info_string)
+      st.write(linkedin_url)
       leads["LinkedIN_URL"].append(linkedin_url)
       email = get_emails_from_linkedin(linkedin_url)
       leads["Email"].append(email)
