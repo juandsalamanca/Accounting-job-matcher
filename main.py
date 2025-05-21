@@ -101,7 +101,8 @@ if job_title and number_posts:
     # Cut the data for testing:
     for key in posts_scraped:
       posts_scraped[key] = posts_scraped[key][:5]
-    if st.session_state.posts_processed == False:
+    #if st.session_state.posts_processed == False:
+    if True:
       posts_scraped["Decision_makers"] = []
       for company_url in posts_scraped["Company_LI_URL"]:
         company_data = scrape_employees_from_companies(company_url)
