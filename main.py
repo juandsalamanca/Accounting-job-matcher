@@ -15,8 +15,10 @@ st.subheader("Extract lead list and get emails")
 restart = st.button("Restart")
 if restart:
   st.session_state.leads_processed = False
-  st.session_state.checkpoint = False
+  st.session_state.leads_checkpoint = False
   st.session_state.posts_processed = False
+  st.session_state.posts_checkpoint = False
+  st.session_state.posts_scraped = False
 
 if "leads_processed" not in st.session_state:
   st.session_state.leads_processed = False
@@ -89,7 +91,7 @@ if job_title and number_posts:
       embedded_positions = np.load("position_embeddings.npy")
       st.session_state.posts_scraped = job_post_scraper(job_title, number_posts)
       st.session_state.posts_checkpoint = True
-    post_scraped = st.session_state.posts_scraped
+    posts_scraped = st.session_state.posts_scraped
     posts_scraped["Decision_makers"] = []
     for company_url in posts_scraped["Company_LI_URL"]:
       company_data = scrape_employees_from_companies(company_url)
