@@ -54,7 +54,7 @@ if cookie_input and list_url and max_results:
       leads["LinkedIN_URL"].append(linkedin_url)
       email = get_emails_from_linkedin(linkedin_url)
       leads["Email"].append(email)
-      leads_df = pd.DataFrame(leads)
+    leads_df = pd.DataFrame(leads)
       
     st.session_state.leads_processed = True
 
