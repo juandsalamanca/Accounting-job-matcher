@@ -94,7 +94,7 @@ if job_title and number_posts:
   scrape = st.button("Scrape job posts")
   if scrape:
     if st.session_state.posts_checkpoint == False:
-      embedded_positions = np.load("position_embeddings.npy")
+      
       st.session_state.posts_scraped = job_post_scraper(job_title, number_posts)
       st.session_state.posts_checkpoint = True
     posts_scraped = st.session_state.posts_scraped
@@ -103,6 +103,7 @@ if job_title and number_posts:
       posts_scraped[key] = posts_scraped[key][:5]
     #if st.session_state.posts_processed == False:
     if True:
+      embedded_positions = np.load("position_embeddings.npy")
       posts_scraped["Decision_makers"] = []
       for company_url in posts_scraped["Company_LI_URL"]:
         company_data = scrape_employees_from_companies(company_url)
