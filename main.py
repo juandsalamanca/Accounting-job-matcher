@@ -107,9 +107,9 @@ if job_title and number_posts:
       embedded_positions = np.load("position_embeddings.npy")
       posts_scraped["Decision_makers"] = []
       progress_text = "Scraping employees and filtering decision makers."
-      my_bar = st.progress(0, text=progress_text)
+      my_bar = st.progress(0.0, text=progress_text)
       l = len(posts_scraped["Company_LI_URL"])
-      delta = (1/l)*100
+      delta = (1/l)
       percent_complete = 0.0
       for i, company_url in enumerate(posts_scraped["Company_LI_URL"]):
         company_data = scrape_employees_from_companies(company_url)
@@ -117,6 +117,8 @@ if job_title and number_posts:
         dm_string = ""
         time.sleep(2)
         percent_complete += delta
+        if percent_complete >1.0:
+          percent_complete = 1.0
         progress_text = f"Scraped {i+1} decision makers"
         my_bar.progress(percent_complete, text=progress_text)
         for decision_maker in decision_makers:
