@@ -102,7 +102,6 @@ if job_title and number_posts:
         except Exception as e:
           st.error(f"Scraper failed. Error: {e}")
     posts_scraped = st.session_state.posts_scraped
-    s
     # Cut the data for testing:
     #for key in posts_scraped:
     #  posts_scraped[key] = posts_scraped[key][:5]
@@ -115,20 +114,23 @@ if job_title and number_posts:
       l = len(posts_scraped["Company_LI_URL"])
       delta = (1/l)
       percent_complete = 0.0
-      for i, company_url in enumerate(posts_scraped["Company_LI_URL"]):
-        company_data = scrape_employees_from_companies(company_url)
-        decision_makers = get_decision_makers(company_data[0], embedded_positions)
-        dm_string = ""
-        time.sleep(2)
-        percent_complete += delta
-        if percent_complete >1.0:
-          percent_complete = 1.0
-        progress_text = f"Scraped {i+1} decision makers"
-        my_bar.progress(percent_complete, text=progress_text)
-        for decision_maker in decision_makers:
-          dm_string += f"({decision_maker["Name"]}, {decision_maker["Position"]}, {decision_maker["LinkedIn_URL"]}, {decision_maker["Email"]})"
-        posts_scraped["Decision_makers"].append(dm_string)
-        time.sleep(2)
+      try:
+        for i, company_url in enumerate(posts_scraped["Company_LI_URL"]):
+          company_data = scrape_employees_from_companies(company_url)
+          decision_makers = get_decision_makers(company_data[0], embedded_positions)
+          dm_string = ""
+          time.sleep(2)
+          percent_complete += delta
+          if percent_complete >1.0:
+            percent_complete = 1.0
+          progress_text = f"Scraped {i+1} decision makers"
+          my_bar.progress(percent_complete, text=progress_text)
+          for decision_maker in decision_makers:
+            dm_string += f"({decision_maker["Name"]}, {decision_maker["Position"]}, {decision_maker["LinkedIn_URL"]}, {decision_maker["Email"]})"
+          posts_scraped["Decision_makers"].append(dm_string)
+          time.sleep(2)
+      except Exception as e:
+        st.error(f"Problem getting decision makers: {e}")
       st.success("Done getting decision makers!")
   
       st.session_state.posts_df = pd.DataFrame(posts_scraped)
