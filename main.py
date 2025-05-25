@@ -95,10 +95,14 @@ if job_title and number_posts:
   if scrape:
     if st.session_state.posts_checkpoint == False:
       with st.spinner("Scraping job post", show_time=True):
-        st.session_state.posts_scraped = job_post_scraper(job_title, number_posts)
-        st.session_state.posts_checkpoint = True
+        try:
+          st.session_state.posts_scraped = job_post_scraper(job_title, number_posts)
+          st.session_state.posts_checkpoint = True
+          st.success("Done getting job posts!")
+        except Exception as e:
+          st.error(f"Scraper failed. Error: {e}")
     posts_scraped = st.session_state.posts_scraped
-    st.success("Done getting job posts!")
+    s
     # Cut the data for testing:
     #for key in posts_scraped:
     #  posts_scraped[key] = posts_scraped[key][:5]
